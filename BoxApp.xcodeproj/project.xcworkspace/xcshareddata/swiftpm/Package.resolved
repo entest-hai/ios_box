@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "BoxSDK",
+        "repositoryURL": "https://github.com/box/box-ios-sdk.git",
+        "state": {
+          "branch": null,
+          "revision": "d002710382477d59acc6507466ac73c632ad9c61",
+          "version": "4.4.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
