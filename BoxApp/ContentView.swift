@@ -94,7 +94,14 @@ struct ContentView: View {
     }
     
     func buildItemView(boxFolderItem: BoxFolderItem) -> AnyView {
+        let dateFormatter: DateFormatter = {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "MMM dd,yyyy at HH:mm a"
+            return formatter
+        }()
+        
         var icon: String
+        var modifiedAt: String
         if case let .file(file) = boxFolderItem.folderItem {
             switch file.extension {
             case "boxnote":
@@ -124,27 +131,41 @@ struct ContentView: View {
             default:
                 icon = "generic"
             }
+            modifiedAt = String(format: "Date Modified %@", dateFormatter.string(from: file.modifiedAt ?? Date()))
             return AnyView(HStack{
                 Image(icon)
-                Text("\(file.name ?? "")")
-                
+                VStack(alignment: .leading){
+                    Text("\(file.name ?? "")")
+                    .lineLimit(1)
+                    .font(.headline)
+                    Text("\(modifiedAt)")
+                        .font(.system(size: 12))
+                        .foregroundColor(Color.gray)
+                        .lineLimit(1)
+                }
+                Spacer()
+                Image(systemName: "person")
             });
-            
         }
 
         else if case let .folder(folder) = boxFolderItem.folderItem {
+            modifiedAt = String(format: "Date Modified %@", dateFormatter.string(from: folder.modifiedAt ?? Date()))
             return AnyView(HStack{
                 Image("folder")
-                Text("\(folder.name ?? "")")
+                VStack(alignment: .leading){
+                    Text("\(folder.name ?? "")")
+                    .lineLimit(1)
+                    .font(.headline)
+                    Text("\(modifiedAt)")
+                        .font(.system(size: 12))
+                        .foregroundColor(Color.gray)
+                        .lineLimit(1)
+                }
+                Spacer()
+                Image(systemName: "person")
             });
         }
         return AnyView(Text("Item Unknown"));
     }
     
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
 }
