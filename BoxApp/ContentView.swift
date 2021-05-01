@@ -144,26 +144,38 @@ struct ContentView: View {
                         .lineLimit(1)
                 }
                 Spacer()
-                Image(systemName: "person")
+                Image(systemName: "ellipsis")
             });
         }
 
         else if case let .folder(folder) = boxFolderItem.folderItem {
             modifiedAt = String(format: "Date Modified %@", dateFormatter.string(from: folder.modifiedAt ?? Date()))
-            return AnyView(HStack{
-                Image("folder")
-                VStack(alignment: .leading){
-                    Text("\(folder.name ?? "")")
-                    .lineLimit(1)
-                    .font(.headline)
-                    Text("\(modifiedAt)")
-                        .font(.system(size: 12))
-                        .foregroundColor(Color.gray)
-                        .lineLimit(1)
+            return AnyView(
+                Button(action: {
+                    print("choose a item")
+                }) {
+                    HStack{
+                        Image("folder")
+                            .foregroundColor(Color("folder"))
+                        VStack(alignment: .leading){
+                            Text("\(folder.name ?? "")")
+                            .lineLimit(1)
+                            .font(.headline)
+                            Text("\(modifiedAt)")
+                                .font(.system(size: 12))
+                                .foregroundColor(Color.gray)
+                                .lineLimit(1)
+                        }
+                        Spacer()
+                        Button(action: {
+                            print("share this folder")
+                        }) {
+                            Image(systemName: "ellipsis")
+                                .foregroundColor(Color.gray)
+                        }
+                    }
                 }
-                Spacer()
-                Image(systemName: "person")
-            });
+            );
         }
         return AnyView(Text("Item Unknown"));
     }
