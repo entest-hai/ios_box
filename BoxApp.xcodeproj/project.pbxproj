@@ -14,6 +14,7 @@
 		27D7FF9E263AA76B004027BA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27D7FF9D263AA76B004027BA /* Preview Assets.xcassets */; };
 		27D7FFA1263AA76B004027BA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27D7FF9F263AA76B004027BA /* LaunchScreen.storyboard */; };
 		27D7FFAA263AA949004027BA /* BoxSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 27D7FFA9263AA949004027BA /* BoxSDK */; };
+		27D7FFD4263D1E08004027BA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7FFD3263D1E08004027BA /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		27D7FF9D263AA76B004027BA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		27D7FFA0263AA76B004027BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		27D7FFA2263AA76B004027BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		27D7FFD3263D1E08004027BA /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				27D7FF94263AA767004027BA /* AppDelegate.swift */,
 				27D7FF96263AA767004027BA /* SceneDelegate.swift */,
 				27D7FF98263AA767004027BA /* ContentView.swift */,
+				27D7FFD3263D1E08004027BA /* Constants.swift */,
 				27D7FF9A263AA76B004027BA /* Assets.xcassets */,
 				27D7FF9F263AA76B004027BA /* LaunchScreen.storyboard */,
 				27D7FFA2263AA76B004027BA /* Info.plist */,
@@ -157,6 +160,7 @@
 				27D7FF95263AA767004027BA /* AppDelegate.swift in Sources */,
 				27D7FF97263AA767004027BA /* SceneDelegate.swift in Sources */,
 				27D7FF99263AA767004027BA /* ContentView.swift in Sources */,
+				27D7FFD4263D1E08004027BA /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
