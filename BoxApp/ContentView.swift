@@ -16,14 +16,6 @@ enum AuthState {
     case login 
 }
 
-final class SessionManager : ObservableObject {
-    var box = BoxSupport()
-    @Published var authState : AuthState = AuthState.login
-    func authenticate(){
-        self.authState = self.box.authenticate()
-    }
-}
-
 struct BoxFolderItem :Identifiable {
     let id = UUID()
     var folderItem: FolderItem
@@ -43,20 +35,19 @@ class BoxSupport : NSObject, ObservableObject, ASWebAuthenticationPresentationCo
         return ASPresentationAnchor()
     }
     
-    func authenticate() -> AuthState {
-        var authState = AuthState.login
+    func authenticate() {
+
         print("box authenticate")
         self.sdk.getOAuth2Client(tokenStore: KeychainTokenStore(), context: self) { [weak self] result in
             switch result {
             case let .success(client):
-                authState = AuthState.authenticatedsuccess(boxClient: client)
+                self?.authState = AuthState.authenticatedsuccess(boxClient: client)
             case let .failure(error):
                 print("error in getOAuth2Client: \(error)")
                 print(error)
-                authState = AuthState.authenticatedfailed
+                self?.authState = AuthState.authenticatedfailed
             }
         }
-        return authState
     }
     
     func getFolderItems(client : BoxClient){
@@ -94,11 +85,11 @@ class BoxSupport : NSObject, ObservableObject, ASWebAuthenticationPresentationCo
 
 
 struct LoginView : View {
-    @EnvironmentObject var sessionManager: SessionManager
+    @EnvironmentObject var box: BoxSupport
     var body: some View {
         NavigationView{
             Button(action: {
-                self.sessionManager.authenticate()
+                self.box.authenticate()
             }){
                 Text("Login")
             }
@@ -109,8 +100,7 @@ struct LoginView : View {
 
 struct AuthenticatedView : View {
     let boxClient : BoxClient
-    @EnvironmentObject var sessionManager: SessionManager
-    @ObservedObject var box = BoxSupport()
+    @EnvironmentObject var box: BoxSupport
     var body: some View {
         NavigationView{
             List(self.box.folderItems){item in
@@ -214,15 +204,15 @@ struct AuthenticatedView : View {
 }
 
 struct BoxAppView : View {
-    @ObservedObject var sessionManager = SessionManager()
+    @ObservedObject var box = BoxSupport()
     var body: some View {
-        switch self.sessionManager.authState {
+        switch self.box.authState {
         case AuthState.login:
-            return AnyView(LoginView().environmentObject(sessionManager))
+            return AnyView(LoginView().environmentObject(box))
         case AuthState.authenticatedsuccess(let boxClient):
-            return AnyView(AuthenticatedView(boxClient: boxClient).environmentObject(sessionManager))
+            return AnyView(AuthenticatedView(boxClient: boxClient).environmentObject(box))
         case AuthState.authenticatedfailed:
-            return AnyView(LoginView().environmentObject(sessionManager))
+            return AnyView(LoginView().environmentObject(box))
         }
     }
 }
